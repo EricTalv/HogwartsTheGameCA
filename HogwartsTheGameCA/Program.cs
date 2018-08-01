@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 
 namespace HogwartsTheGameCA
 {
@@ -6,53 +8,35 @@ namespace HogwartsTheGameCA
     {
         static void Main()
         {
-
-            //Gameplay
-            Console.WriteLine("=============================================");
-            Console.WriteLine("Welcome!");
-            Console.WriteLine("Pick Solution");
-            Console.WriteLine("[ A ] - IF GAME\n [ B ] - IF GAME \n [ C ] - ARRAY GAME");
-            Console.WriteLine("=============================================");
-
-            string userInput = Console.ReadLine();
+            //Initial Title
+            Console.Title = "Welcome To Hogwarts!";
             
+            //Declare Encoding for unicoded ASCII graphics
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            //Get the file we want
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("HogwartsTheGameCA.HMenuResources.WelcomeToHogwarts.txt"))
+            {
+                //Read file contents
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    //Write out contents
+                    string contents = reader.ReadToEnd();
+
+                    //Console.SetCursorPosition((Console.WindowWidth - contents.Length) / 2, Console.CursorTop);
+
+                    //Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (contents.Length / 2)) + "}", contents));
+
+                    //Console.Write(new string(' ', (Console.WindowWidth - contents.Length) / 2));
+
+                    Console.WriteLine(contents);
+
+                }
+
+            }
+
+            Console.ReadKey();
 
         }
-
-        public static void IfGame()
-        {
-            Console.WriteLine("CHOOSE [A] [B]");
-            string userInput = Console.ReadLine();
-
-            if (userInput.ToLower() == "a")
-            {
-
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("You have chosen A! Awesome");
-                Console.ResetColor();
-            }
-
-            else if (userInput.ToLower() == "b")
-            {
-
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("You have chosen B! Beautiful");
-                Console.ResetColor();
-
-            }
-
-            else if (userInput.ToLower() == "q")
-            {
-                Environment.Exit(0);              
-            }
-
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("You have chosen Nothing!");
-                Console.ResetColor();
-            }
-        }
-
-    }
+    }           
 }
